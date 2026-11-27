@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Plan internship tasks, deadlines, and check-ins.">
+  <title>InternDesk · Daily Planner</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="top"><div class="wrap"><div class="brand"><span aria-hidden="true">ID</span> InternDesk</div><span class="workspace">Personal workspace</span></div></header>
+  <main class="wrap">
+    <div class="intro"><div><h1>Daily Planner</h1><p>Plan your internship work and keep check-ins in view.</p></div><button class="primary" id="new-task">+ New task</button></div>
+    <p id="status" role="status"></p>
+    <section class="metrics" aria-label="Task summary">
+      <div><span>Open tasks</span><strong id="open-count">0</strong></div>
+      <div><span>Waiting tasks</span><strong id="blocked-count">0</strong></div>
+      <div><span>Completed tasks</span><strong id="done-count">0</strong></div>
+    </section>
+    <div class="grid">
+      <section class="panel" aria-labelledby="tasks-heading">
+        <div class="panel-head"><h2 id="tasks-heading">Tasks</h2><label>Show <select id="filter"><option value="all">All tasks</option><option value="open">Open</option><option value="blocked">Waiting</option><option value="done">Completed</option></select></label><label>Priority <select id="priority-filter"><option value="all">All priorities</option><option value="urgent">Urgent</option><option value="normal">Normal</option><option value="low">Low</option></select></label></div>
+        <ul id="tasks" class="records"></ul>
+      </section>
+      <section class="panel" aria-labelledby="calendar-heading">
+        <div class="panel-head"><h2 id="calendar-heading">Calendar</h2><button id="new-event">+ New event</button></div>
+        <div class="calendar-nav"><button id="prev" aria-label="Previous month">‹</button><strong id="month" aria-live="polite"></strong><button id="next" aria-label="Next month">›</button></div>
+        <div class="calendar" id="calendar"></div>
+        <h3 id="agenda-date"></h3>
+        <ul id="agenda" class="records"></ul>
+      </section>
+    </div>
+  </main>
+  <dialog id="editor" aria-labelledby="editor-title">
+    <form id="record-form">
+      <h2 id="editor-title"></h2>
+      <label>Title <input name="title" required maxlength="150"></label>
+      <label>Link <input name="link" type="text" inputmode="url" autocomplete="off" placeholder="https://docs.google.com/..." aria-describedby="link-hint"><small id="link-hint">Optional. Paste a document or website URL.</small></label>
+      <label id="date-label">Date <input name="date" type="date"></label>
+      <div id="event-fields">
+        <label>Event type <select name="type"><option>Check-in</option><option>Meeting</option></select></label>
+        <label>Time <input name="time" type="time"></label>
+        <label>Details <textarea name="details" rows="3"></textarea></label>
+      </div>
+      <div id="task-fields">
+        <fieldset class="priority-picker">
+          <legend>Priority</legend>
+          <div class="priority-options">
+            <label><input type="radio" name="priority" value="urgent"><span class="priority-urgent">Urgent</span></label>
+            <label><input type="radio" name="priority" value="normal" checked><span class="priority-normal">Normal</span></label>
+            <label><input type="radio" name="priority" value="low"><span class="priority-low">Low</span></label>
+          </div>
+        </fieldset>
+        <label class="inline"><input name="blocked" type="checkbox"> Waiting on something</label>
+        <label>What are you waiting for? <textarea name="blocker" rows="2" placeholder="e.g. Supervisor approval"></textarea></label>
+      </div>
+      <p id="form-error" role="alert"></p>
+      <div class="actions"><button type="button" id="cancel">Cancel</button><button class="primary" type="submit">Save</button></div>
+    </form>
+  </dialog>
+</body>
+</html>
